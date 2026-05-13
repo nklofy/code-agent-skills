@@ -6,11 +6,13 @@
 - Source: `.trae/skills/mini-superpowers` sub skills
 - Output: `superpowers-skills`
 - Naming: each copied skill directory and frontmatter `name` uses the `superpowers-` prefix
+- Low-cost standalone option: `mini-superpowers`
 
 ## Skills
 
 | Output Skill | Source Skill | Category | Path |
 |---|---|---|---|
+| `mini-superpowers` | summary of the suite | Entry | `mini-superpowers/SKILL.md` |
 | `superpowers-brainstorming` | `brainstorming` | Core | `superpowers-brainstorming/SKILL.md` |
 | `superpowers-dispatching-parallel-agents` | `dispatching-parallel-agents` | Execution | `superpowers-dispatching-parallel-agents/SKILL.md` |
 | `superpowers-executing-plans` | `executing-plans` | Core | `superpowers-executing-plans/SKILL.md` |
@@ -30,7 +32,8 @@
 
 ```text
 You have access to the superpowers-* skill set.
-Before development work, load superpowers-using-superpowers first, then follow its guidance to select the relevant superpowers-* skill.
+For lower-cost usage, use mini-superpowers as a standalone workflow skill.
+If you need the full detailed suite, load superpowers-using-superpowers first, then follow its guidance to select the relevant superpowers-* skill.
 For feature work use brainstorming, writing plans, TDD, review, verification, and finishing skills as appropriate.
 For failures use superpowers-systematic-debugging before applying fixes.
 ```

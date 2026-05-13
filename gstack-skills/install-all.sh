@@ -13,6 +13,7 @@ CLAUDE_GLOBAL_TARGET="${HOME}/.claude/skills"
 CLAUDE_PROJECT_TARGET="${REPO_ROOT}/.claude/skills"
 
 SKILLS=(
+  "mini-gstack"
   "gstack-office-hours"
   "gstack-task-planner"
   "gstack-engineering-workflow"
@@ -27,6 +28,8 @@ Usage: ./out-skills/install-all.sh [options]
 Installs the out-skills suite into:
   - Trae project skills: ./.trae/skills
   - Claude global skills: ~/.claude/skills
+
+For lower-cost usage, you can primarily use `mini-gstack` after install.
 
 Options:
   --copy                    Copy files instead of creating symlinks
@@ -121,4 +124,5 @@ for skill in "${SKILLS[@]}"; do
   printf '  - %s\n' "$skill"
 done
 
+log "Lowest-cost starting point: mini-gstack"
 log "Done."

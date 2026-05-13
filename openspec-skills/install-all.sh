@@ -15,6 +15,7 @@ CLAUDE_SKILLS_DIR="$TARGET_ROOT/.claude/skills"
 CLAUDE_COMMANDS_DIR="$TARGET_ROOT/.claude/commands/openspec"
 
 SKILL_NAMES=(
+  "mini-openspec"
   "openspec-workflow-installer"
   "openspec-change-planning"
   "openspec-artifact-status"
@@ -96,6 +97,7 @@ EOF
 
 install_commands() {
   # Common command set for both hosts
+  write_trae_command "mini" "mini-openspec"
   write_trae_command "install" "openspec-workflow-installer"
   write_trae_command "plan" "openspec-change-planning"
   write_trae_command "status" "openspec-artifact-status"
@@ -104,6 +106,7 @@ install_commands() {
   write_trae_command "archive" "openspec-archive"
   write_trae_command "adapt" "openspec-tool-adapter"
 
+  write_claude_command "mini" "mini-openspec" "OpenSpec Mini" "Use the compact standalone OpenSpec workflow skill with lower loading cost."
   write_claude_command "install" "openspec-workflow-installer" "OpenSpec Install" "Install or update OpenSpec workflow assets."
   write_claude_command "plan" "openspec-change-planning" "OpenSpec Plan" "Plan a new OpenSpec change with proposal, design, tasks, and specs."
   write_claude_command "status" "openspec-artifact-status" "OpenSpec Status" "Report OpenSpec change status and the next action."
@@ -162,7 +165,9 @@ cat <<EOF
 
 Next steps:
   1. Restart or reload your agent host if it caches local skills or commands.
-  2. Try:
+  2. For the lowest-cost workflow, start with:
+     - openspec:mini
+  3. If you need the detailed suite, try:
      - openspec:plan <idea>
      - openspec:status <change-name>
      - openspec:apply <change-name>

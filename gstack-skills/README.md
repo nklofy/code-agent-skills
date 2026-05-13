@@ -7,6 +7,17 @@ The goal is not to reproduce the entire `gstack` runtime. The goal is to keep
 the most reusable workflow logic in a form that can be moved into a general
 agent environment.
 
+The package now includes `mini-gstack`, a compressed standalone skill that can
+replace the full suite in lower-cost environments.
+
+## Entry Skill
+
+### `mini-gstack`
+
+- Compact standalone replacement for the whole suite
+- Use when you want one lower-cost skill that still covers framing, planning, implementation, review, and debugging
+- Prefer this in constrained hosts or when you want to minimize skill-loading overhead
+
 ## Included Skills
 
 ### `gstack-office-hours`
@@ -36,6 +47,7 @@ agent environment.
 
 ## Recommended Routing
 
+- Choose `mini-gstack` if you want one skill that can replace the suite at lower cost
 - Choose `gstack-office-hours` for problem framing
 - Choose `gstack-task-planner` for plan creation
 - Choose `gstack-engineering-workflow` for implementation
@@ -46,16 +58,28 @@ agent environment.
 
 ### Product Discovery To Build
 
+1. `mini-gstack`
+
+Or detailed mode:
+
 1. `gstack-office-hours`
 2. `gstack-task-planner`
 3. `gstack-engineering-workflow`
 
 ### Debug Then Fix
 
+1. `mini-gstack`
+
+Or detailed mode:
+
 1. `gstack-bug-investigator`
 2. `gstack-engineering-workflow`
 
 ### Build Then Review
+
+1. `mini-gstack`
+
+Or detailed mode:
 
 1. `gstack-engineering-workflow`
 2. `gstack-task-reviewer`
@@ -76,6 +100,17 @@ available.
 ## Structure
 
 Each skill lives in its own directory and contains a single `SKILL.md`.
+
+This includes:
+
+- `mini-gstack/SKILL.md`
+- `gstack-office-hours/SKILL.md`
+- `gstack-task-planner/SKILL.md`
+- `gstack-engineering-workflow/SKILL.md`
+- `gstack-task-reviewer/SKILL.md`
+- `gstack-bug-investigator/SKILL.md`
+
+If you want the lowest-cost setup, installing only `mini-gstack/` is usually enough.
 
 ## Attribution
 

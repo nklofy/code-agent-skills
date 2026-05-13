@@ -16,6 +16,8 @@ Installs the superpowers skill suite into:
   - <target>/.claude/skills
   - <target>/.trae/commands/superpowers
   - <target>/.claude/commands/superpowers
+
+For lower-cost usage, you can primarily use `mini-superpowers` after install.
 EOF
 }
 
@@ -34,6 +36,7 @@ CLAUDE_SKILLS_DIR="$TARGET_ROOT/.claude/skills"
 CLAUDE_COMMANDS_DIR="$TARGET_ROOT/.claude/commands/superpowers"
 
 SKILL_NAMES=(
+  "mini-superpowers"
   "superpowers-using-superpowers"
   "superpowers-brainstorming"
   "superpowers-writing-plans"
@@ -128,6 +131,7 @@ EOF
 }
 
 install_commands() {
+  write_trae_command "mini" "mini-superpowers"
   write_trae_command "using-superpowers" "superpowers-using-superpowers"
   write_trae_command "brainstorming" "superpowers-brainstorming"
   write_trae_command "writing-plans" "superpowers-writing-plans"
@@ -143,6 +147,7 @@ install_commands() {
   write_trae_command "using-git-worktrees" "superpowers-using-git-worktrees"
   write_trae_command "writing-skills" "superpowers-writing-skills"
 
+  write_claude_command "mini" "mini-superpowers" "Superpowers Mini" "Use the compact standalone Superpowers workflow skill with lower loading cost."
   write_claude_command "using-superpowers" "superpowers-using-superpowers" "Superpowers Start" "Load the Superpowers entry skill and route to the right workflow."
   write_claude_command "brainstorming" "superpowers-brainstorming" "Superpowers Brainstorming" "Turn a fuzzy request into a validated design."
   write_claude_command "writing-plans" "superpowers-writing-plans" "Superpowers Writing Plans" "Write an actionable implementation plan before coding."
@@ -185,7 +190,9 @@ echo
 cat <<'EOF'
 Next steps:
   1. Restart or reload your agent host if it caches local skills or commands.
-  2. Start with:
+  2. For the lowest-cost workflow, start with:
+     - superpowers:mini
+  3. If you need the detailed suite, try:
      - superpowers:using-superpowers
      - superpowers:writing-plans <feature>
      - superpowers:systematic-debugging <failure>

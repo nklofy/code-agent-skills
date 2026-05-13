@@ -7,6 +7,7 @@
 - Description: Portable gstack-derived skill suite for Trae and Claude environments.
 - Source root: `out-skills`
 - Default install mode: `symlink`
+- Low-cost standalone option: `mini-gstack`
 
 ## Default Targets
 
@@ -24,6 +25,16 @@
   - Path: `.claude/skills`
 
 ## Skills
+
+### `mini-gstack`
+
+- Path: `mini-gstack/SKILL.md`
+- Category: `entry`
+- Summary: Covers framing, planning, implementation, review, and debugging in one compact standalone skill.
+- Invoke when:
+  - You want one lower-cost skill instead of the full suite
+  - The host has limited context budget
+  - The task spans multiple workflow stages and a compact all-in-one skill is enough
 
 ### `gstack-office-hours`
 

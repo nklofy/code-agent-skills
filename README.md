@@ -12,9 +12,9 @@
 
 | 目录 | 定位 | 适合场景 |
 | --- | --- | --- |
-| `openspec-skills/` | OpenSpec 风格的 spec-driven workflow skills | 先规划 proposal/design/tasks/spec，再实现、同步、归档 |
-| `superpowers-skills/` | Superpowers 的扁平化前缀版技能集 | 复杂开发、调试、代码审查、计划执行、技能编写 |
-| `gstack-skills/` | 从 gstack 提炼出的轻量工程工作流 skills | 问题澄清、任务规划、实现、评审、排障 |
+| `openspec-skills/` | OpenSpec 风格的 spec-driven workflow skills，含可独立替代整包的 `mini-openspec` | 先规划 proposal/design/tasks/spec，再实现、同步、归档 |
+| `superpowers-skills/` | Superpowers 的扁平化前缀版技能集，含可独立替代整包的 `mini-superpowers` | 复杂开发、调试、代码审查、计划执行、技能编写 |
+| `gstack-skills/` | 从 gstack 提炼出的轻量工程工作流 skills，含可独立替代整包的 `mini-gstack` | 问题澄清、任务规划、实现、评审、排障 |
 
 ### 目录结构
 
@@ -27,17 +27,20 @@ code-agent-skills/
 │   ├── MANIFEST.md
 │   ├── PLAN.md
 │   ├── install-all.sh
+│   ├── mini-openspec/
 │   └── openspec-*/
 ├── superpowers-skills/
 │   ├── README.md
 │   ├── MANIFEST.md
 │   ├── install-all.sh
+│   ├── mini-superpowers/
 │   └── superpowers-*/
 └── gstack-skills/
     ├── README.md
     ├── MANIFEST.md
     ├── PLAN.md
     ├── install-all.sh
+    ├── mini-gstack/
     └── gstack-*/
 ```
 
@@ -59,6 +62,10 @@ code-agent-skills/
 
 更多说明见 [openspec-skills/README.md](./openspec-skills/README.md)。
 
+低成本使用时，直接用 `mini-openspec` 即可；需要更细粒度控制时再切到具体 `openspec-*` skill。
+
+如果只想保留最低成本能力，通常只安装 `mini-openspec/` 也足够。
+
 #### Superpowers
 
 安装到目标项目：
@@ -73,6 +80,10 @@ code-agent-skills/
 - `superpowers:*` command prompts 到目标项目 `.trae/commands/superpowers/` 和 `.claude/commands/superpowers/`
 
 更多说明见 [superpowers-skills/README.md](./superpowers-skills/README.md)。
+
+低成本使用时，直接用 `mini-superpowers` 即可；需要更强约束或更细分流程时再进入 `superpowers-*` workflow。
+
+如果只想保留最低成本能力，通常只安装 `mini-superpowers/` 也足够。
 
 #### gstack
 
@@ -89,6 +100,10 @@ code-agent-skills/
 ```
 
 更多说明见 [gstack-skills/README.md](./gstack-skills/README.md)。
+
+低成本使用时，直接用 `mini-gstack` 即可；需要更专业的单阶段工作流时再选择 `gstack-*` 细分 skill。
+
+如果只想保留最低成本能力，通常只安装 `mini-gstack/` 也足够。
 
 ### 推荐选型
 
@@ -130,9 +145,9 @@ It currently brings together 3 skill suites from different origins and workflow 
 
 | Directory | Positioning | Best For |
 | --- | --- | --- |
-| `openspec-skills/` | OpenSpec-style spec-driven workflow skills | Planning proposals, design, tasks, and specs before implementation, sync, and archive |
-| `superpowers-skills/` | Flat, prefixed adaptation of Superpowers skills | Complex development work, debugging, code review, plan execution, and skill authoring |
-| `gstack-skills/` | Lightweight engineering workflow skills distilled from gstack | Problem framing, task planning, implementation, review, and debugging |
+| `openspec-skills/` | OpenSpec-style spec-driven workflow skills with `mini-openspec` as a standalone low-cost replacement | Planning proposals, design, tasks, and specs before implementation, sync, and archive |
+| `superpowers-skills/` | Flat, prefixed adaptation of Superpowers skills with `mini-superpowers` as a standalone low-cost replacement | Complex development work, debugging, code review, plan execution, and skill authoring |
+| `gstack-skills/` | Lightweight engineering workflow skills distilled from gstack with `mini-gstack` as a standalone low-cost replacement | Problem framing, task planning, implementation, review, and debugging |
 
 ### Structure
 
@@ -145,17 +160,20 @@ code-agent-skills/
 │   ├── MANIFEST.md
 │   ├── PLAN.md
 │   ├── install-all.sh
+│   ├── mini-openspec/
 │   └── openspec-*/
 ├── superpowers-skills/
 │   ├── README.md
 │   ├── MANIFEST.md
 │   ├── install-all.sh
+│   ├── mini-superpowers/
 │   └── superpowers-*/
 └── gstack-skills/
     ├── README.md
     ├── MANIFEST.md
     ├── PLAN.md
     ├── install-all.sh
+    ├── mini-gstack/
     └── gstack-*/
 ```
 
@@ -177,6 +195,10 @@ Optionally install a minimal `openspec/` template:
 
 See [openspec-skills/README.md](./openspec-skills/README.md) for details.
 
+Recommended low-cost starting point: `mini-openspec`
+
+If you only want the smallest install footprint, installing just `mini-openspec/` is often enough.
+
 #### Superpowers
 
 Install into a target project:
@@ -191,6 +213,10 @@ By default this installs:
 - `superpowers:*` command prompts into the target project's `.trae/commands/superpowers/` and `.claude/commands/superpowers/`
 
 See [superpowers-skills/README.md](./superpowers-skills/README.md) for details.
+
+Recommended low-cost starting point: `mini-superpowers`
+
+If you only want the smallest install footprint, installing just `mini-superpowers/` is often enough.
 
 #### gstack
 
@@ -207,6 +233,10 @@ To copy files instead of using symlinks:
 ```
 
 See [gstack-skills/README.md](./gstack-skills/README.md) for details.
+
+Recommended low-cost starting point: `mini-gstack`
+
+If you only want the smallest install footprint, installing just `mini-gstack/` is often enough.
 
 ### Recommended Choice
 

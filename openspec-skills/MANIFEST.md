@@ -2,7 +2,7 @@
 
 ## 目的
 
-这份 `MANIFEST.md` 是 `out-skills/` 的双环境安装计划，用于指导将 7 个 `openspec-*` skills 同时安装到 Trae 和 Claude 环境。
+这份 `MANIFEST.md` 是 `out-skills/` 的双环境安装计划，用于指导将 7 个 `openspec-*` skills 与一个可独立替代整包的 `mini-openspec` 一起安装到 Trae 和 Claude 环境。
 
 它回答：
 
@@ -21,6 +21,8 @@ out-skills/
 ├── PLAN.md
 ├── MANIFEST.md
 ├── install-all.sh
+├── mini-openspec/
+│   └── SKILL.md
 ├── openspec-workflow-installer/
 │   └── SKILL.md
 ├── openspec-change-planning/
@@ -41,6 +43,7 @@ out-skills/
 
 | Skill | 主要职责 | 推荐触发 |
 | --- | --- | --- |
+| `mini-openspec` | 用单个 skill 压缩覆盖 OpenSpec 核心流程，适合低成本独立使用 | 想少装、少加载，但仍保留 OpenSpec 主流程 |
 | `openspec-workflow-installer` | 初始化或更新 OpenSpec 工作流资产 | 安装、初始化、更新工作流 |
 | `openspec-change-planning` | 创建 proposal/design/tasks/spec delta | 规划需求、创建 change |
 | `openspec-artifact-status` | 判断 artifact 状态和下一步 | 检查状态、找阻塞点 |
@@ -59,6 +62,8 @@ Trae 推荐使用 `.trae/skills/<skill-name>/SKILL.md`。
 <target-project>/
 └── .trae/
     └── skills/
+        ├── mini-openspec/
+        │   └── SKILL.md
         ├── openspec-workflow-installer/
         │   └── SKILL.md
         ├── openspec-change-planning/
@@ -79,6 +84,7 @@ Trae 推荐使用 `.trae/skills/<skill-name>/SKILL.md`。
 
 | 源路径 | 目标路径 |
 | --- | --- |
+| `out-skills/mini-openspec/SKILL.md` | `.trae/skills/mini-openspec/SKILL.md` |
 | `out-skills/openspec-workflow-installer/SKILL.md` | `.trae/skills/openspec-workflow-installer/SKILL.md` |
 | `out-skills/openspec-change-planning/SKILL.md` | `.trae/skills/openspec-change-planning/SKILL.md` |
 | `out-skills/openspec-artifact-status/SKILL.md` | `.trae/skills/openspec-artifact-status/SKILL.md` |
@@ -95,6 +101,8 @@ Claude 环境如果支持 agent skills，推荐与 Trae 保持类似结构：
 <target-project>/
 └── .claude/
     └── skills/
+        ├── mini-openspec/
+        │   └── SKILL.md
         ├── openspec-workflow-installer/
         │   └── SKILL.md
         ├── openspec-change-planning/
@@ -117,6 +125,7 @@ Claude 环境如果支持 agent skills，推荐与 Trae 保持类似结构：
 
 | 源路径 | 目标路径 |
 | --- | --- |
+| `out-skills/mini-openspec/SKILL.md` | `.claude/skills/mini-openspec/SKILL.md` |
 | `out-skills/openspec-workflow-installer/SKILL.md` | `.claude/skills/openspec-workflow-installer/SKILL.md` |
 | `out-skills/openspec-change-planning/SKILL.md` | `.claude/skills/openspec-change-planning/SKILL.md` |
 | `out-skills/openspec-artifact-status/SKILL.md` | `.claude/skills/openspec-artifact-status/SKILL.md` |
@@ -133,6 +142,7 @@ Claude 环境如果支持 agent skills，推荐与 Trae 保持类似结构：
 
 | 命令名 | 对应 Skill | 典型触发 |
 | --- | --- | --- |
+| `openspec-mini` | `mini-openspec` | “用一个 skill 跑 OpenSpec”、“先低成本执行 OpenSpec” |
 | `openspec-install` | `openspec-workflow-installer` | “初始化 OpenSpec”、“安装工作流” |
 | `openspec-plan` | `openspec-change-planning` | “规划这个功能”、“创建 change” |
 | `openspec-status` | `openspec-artifact-status` | “看当前状态”、“下一步做什么” |
@@ -150,6 +160,7 @@ Claude 环境如果支持 agent skills，推荐与 Trae 保持类似结构：
 └── .trae/
     └── commands/
         └── openspec/
+            ├── mini.md
             ├── install.md
             ├── plan.md
             ├── status.md
@@ -174,6 +185,7 @@ Trae command prompt 可以是纯 Markdown，内容只需说明：
 └── .claude/
     └── commands/
         └── openspec/
+            ├── mini.md
             ├── install.md
             ├── plan.md
             ├── status.md
@@ -284,8 +296,8 @@ $ARGUMENTS
 
 这个脚本会一次性安装：
 
-- 7 个 skill 到 `.trae/skills/`
-- 7 个 skill 到 `.claude/skills/`
+- 8 个 skill 到 `.trae/skills/`
+- 8 个 skill 到 `.claude/skills/`
 - Trae command prompts 到 `.trae/commands/openspec/`
 - Claude command prompts 到 `.claude/commands/openspec/`
 
@@ -303,7 +315,7 @@ $ARGUMENTS
 
 ### 阶段 2：安装 Trae skills
 
-复制 7 个 skill 到：
+复制 8 个 skill 到：
 
 ```text
 <target-project>/.trae/skills/
@@ -313,7 +325,7 @@ $ARGUMENTS
 
 ### 阶段 3：安装 Claude skills
 
-复制 7 个 skill 到：
+复制 8 个 skill 到：
 
 ```text
 <target-project>/.claude/skills/
@@ -351,6 +363,7 @@ openspec/
 安装后检查：
 
 - `.trae/skills/openspec-workflow-installer/SKILL.md` 存在
+- `.trae/skills/mini-openspec/SKILL.md` 存在
 - `.trae/skills/openspec-change-planning/SKILL.md` 存在
 - `.trae/skills/openspec-artifact-status/SKILL.md` 存在
 - `.trae/skills/openspec-change-implementation/SKILL.md` 存在
@@ -358,6 +371,7 @@ openspec/
 - `.trae/skills/openspec-archive/SKILL.md` 存在
 - `.trae/skills/openspec-tool-adapter/SKILL.md` 存在
 - `.claude/skills/openspec-workflow-installer/SKILL.md` 存在
+- `.claude/skills/mini-openspec/SKILL.md` 存在
 - `.claude/skills/openspec-change-planning/SKILL.md` 存在
 - `.claude/skills/openspec-artifact-status/SKILL.md` 存在
 - `.claude/skills/openspec-change-implementation/SKILL.md` 存在
@@ -367,6 +381,7 @@ openspec/
 
 如果安装了 commands，也检查：
 
+- `.trae/commands/openspec/mini.md`
 - `.trae/commands/openspec/install.md`
 - `.trae/commands/openspec/plan.md`
 - `.trae/commands/openspec/status.md`
@@ -374,6 +389,7 @@ openspec/
 - `.trae/commands/openspec/sync.md`
 - `.trae/commands/openspec/archive.md`
 - `.trae/commands/openspec/adapt.md`
+- `.claude/commands/openspec/mini.md`
 - `.claude/commands/openspec/install.md`
 - `.claude/commands/openspec/plan.md`
 - `.claude/commands/openspec/status.md`
@@ -436,7 +452,11 @@ openspec/
 
 ## 推荐最小安装
 
-如果只想先试用，安装：
+如果只想先用最低成本方式体验，优先安装：
+
+- `mini-openspec`
+
+如果想先试用细分技能，安装：
 
 - `openspec-change-planning`
 - `openspec-artifact-status`

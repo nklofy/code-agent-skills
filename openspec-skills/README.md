@@ -1,6 +1,6 @@
 # OpenSpec Skills
 
-`openspec-skills` 是一组可移植的 Agent Skills，用来把 OpenSpec 的核心工作流拆成 7 个独立能力，并支持一键安装到 Trae 和 Claude 双环境。
+`openspec-skills` 是一组可移植的 Agent Skills，用来把 OpenSpec 的核心工作流拆成 7 个独立能力，并额外提供一个可独立替代整包使用的精华版 skill `mini-openspec`，支持一键安装到 Trae 和 Claude 双环境。
 
 这套 skills 的目标是：在不依赖 OpenSpec CLI 的情况下，让通用 agent 也能按 OpenSpec 风格完成规划、状态判断、实现、规范同步和归档。
 
@@ -12,6 +12,8 @@ openspec-skills/
 ├── PLAN.md
 ├── MANIFEST.md
 ├── install-all.sh
+├── mini-openspec/
+│   └── SKILL.md
 ├── openspec-workflow-installer/
 │   └── SKILL.md
 ├── openspec-change-planning/
@@ -28,7 +30,13 @@ openspec-skills/
     └── SKILL.md
 ```
 
-## 7 个 Skill
+## 入口 Skill
+
+| Skill | 作用 | 什么时候用 |
+| --- | --- | --- |
+| `mini-openspec` | OpenSpec 工作流精华压缩版，可单文件覆盖 setup、planning、status、implementation、sync、archive | 想以更低成本独立使用 OpenSpec 工作流，或宿主不适合加载整套 skills |
+
+## 7 个细分 Skill
 
 | Skill | 作用 | 什么时候用 |
 | --- | --- | --- |
@@ -50,10 +58,12 @@ openspec-skills/
 
 这会安装：
 
-- 7 个 skill 到目标项目 `.trae/skills/`
-- 7 个 skill 到目标项目 `.claude/skills/`
+- 8 个 skill 到目标项目 `.trae/skills/`
+- 8 个 skill 到目标项目 `.claude/skills/`
 - Trae command prompts 到 `.trae/commands/openspec/`
 - Claude command prompts 到 `.claude/commands/openspec/`
+
+如果你只想要最低成本的独立使用模式，通常只安装 `mini-openspec/` 也足够。
 
 如果还想同时安装最小 `openspec/` 模板：
 
@@ -75,10 +85,13 @@ Trae：
 <target-project>/
 └── .trae/
     ├── skills/
+    │   ├── mini-openspec/
+    │   │   └── SKILL.md
     │   └── openspec-*/
     │       └── SKILL.md
     └── commands/
         └── openspec/
+            ├── mini.md
             ├── install.md
             ├── plan.md
             ├── status.md
@@ -94,10 +107,13 @@ Claude：
 <target-project>/
 └── .claude/
     ├── skills/
+    │   ├── mini-openspec/
+    │   │   └── SKILL.md
     │   └── openspec-*/
     │       └── SKILL.md
     └── commands/
         └── openspec/
+            ├── mini.md
             ├── install.md
             ├── plan.md
             ├── status.md
@@ -111,6 +127,8 @@ Claude：
 
 | 用户说法 | 推荐 Skill |
 | --- | --- |
+| “先用一个低成本 OpenSpec skill 跑完整流程” | `mini-openspec` |
+| “先告诉我 OpenSpec 整体怎么走” | `mini-openspec` |
 | “初始化 OpenSpec” | `openspec-workflow-installer` |
 | “先规划这个功能” | `openspec-change-planning` |
 | “这个 change 现在什么状态” | `openspec-artifact-status` |
@@ -125,6 +143,7 @@ Claude：
 
 | Command | 对应 Skill |
 | --- | --- |
+| `openspec:mini` | `mini-openspec` |
 | `openspec:install` | `openspec-workflow-installer` |
 | `openspec:plan` | `openspec-change-planning` |
 | `openspec:status` | `openspec-artifact-status` |
@@ -136,6 +155,13 @@ Claude：
 ## 典型流程
 
 ```text
+低成本单 skill 模式：
+
+1. mini-openspec
+   直接在一个 skill 内完成 setup / planning / status / implementation / sync / archive
+
+细分 skill 模式：
+
 1. openspec-workflow-installer
    初始化或更新目标项目工作流
 
@@ -167,12 +193,20 @@ Claude：
 
 ```text
 <target-project>/.trae/skills/openspec-change-planning/SKILL.md
+<target-project>/.trae/skills/mini-openspec/SKILL.md
 <target-project>/.claude/skills/openspec-change-planning/SKILL.md
 <target-project>/.trae/commands/openspec/plan.md
+<target-project>/.trae/commands/openspec/mini.md
 <target-project>/.claude/commands/openspec/plan.md
 ```
 
 然后尝试让 agent 执行：
+
+```text
+先用 mini-openspec 以单 skill 模式完成这个 OpenSpec 任务
+```
+
+或：
 
 ```text
 先按 OpenSpec 规划一个 add-sample-feature change
@@ -201,6 +235,7 @@ openspec/
 
 ## 适用场景
 
+- 想只安装或只使用一个低成本的 OpenSpec skill
 - 想把 OpenSpec 能力移植到通用 agent
 - 想同时支持 Trae 和 Claude
 - 想用 skill 而不是 CLI 管理 spec-driven workflow
